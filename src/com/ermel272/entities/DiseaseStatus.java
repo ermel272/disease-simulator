@@ -10,7 +10,7 @@ enum DiseaseStatus {
     SUSCEPTIBLE("susceptible"),
     INFECTED("infected"),
     RECOVERED("recovered"),
-    DISEASED("diseased");
+    DECEASED("deceased");
 
     private final String name;
 
