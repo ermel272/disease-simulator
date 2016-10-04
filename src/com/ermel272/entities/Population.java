@@ -12,20 +12,52 @@ import java.util.ArrayList;
  */
 public class Population {
 
+    // Set initial population size to fifty million
+    private static final int INITIAL_POPULATION_SIZE = 50000000;
+
     private static ArrayList<Person> susceptiblePeople;
     private static ArrayList<Person> infectedPeople;
     private static ArrayList<Person> recoveredPeople;
     private static ArrayList<Person> deceasedPeople;
 
     Population() {
-        // TODO: Implement population constructor method
+        // Initialize population category lists
+        susceptiblePeople = new ArrayList<>();
+        infectedPeople = new ArrayList<>();
+        recoveredPeople = new ArrayList<>();
+        deceasedPeople = new ArrayList<>();
+
+        // Initialize the population to be contained in the 'susceptible' category
+        initSusceptiblePopulation();
     }
 
     /**
-     *
-     * @return
+     * @return The initial size of the healthy population
      */
-    public int getPopulationSize() {
+    public int getInitialPopulationSize() { return INITIAL_POPULATION_SIZE; }
+
+    /**
+     * Returns the number of people in the population who are alive
+     *
+     * @return The number of people who are alive in the Population
+     */
+    public int getActivePopulationSize() {
         return susceptiblePeople.size() + infectedPeople.size() + recoveredPeople.size();
+    }
+
+    /**
+     * Returns the number of people who have died
+     *
+     * @return The number of people who have died
+     */
+    public int getDeceasedPopulationSize() { return deceasedPeople.size(); }
+
+    /**
+     * Initializes and adds people to the susceptible category of the population
+     */
+    private void initSusceptiblePopulation() {
+        for (int i = 0; i < INITIAL_POPULATION_SIZE; i++) {
+            susceptiblePeople.add(new Person());
+        }
     }
 }

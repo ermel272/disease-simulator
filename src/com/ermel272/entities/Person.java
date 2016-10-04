@@ -9,5 +9,11 @@ package com.ermel272.entities;
 public class Person {
 
     // People start healthy by default
-    private static DiseaseStatus status = DiseaseStatus.SUSCEPTIBLE;
+    private DiseaseStatus status = DiseaseStatus.SUSCEPTIBLE;
+
+    public DiseaseStatus getStatus() { return status; }
+
+    public void setStatus(final DiseaseStatus status) {
+        this.status = status;
+    }
 }
