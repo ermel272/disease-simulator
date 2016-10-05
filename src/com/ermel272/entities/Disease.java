@@ -1,6 +1,7 @@
 package com.ermel272.entities;
 
 import static java.lang.Math.round;
+import static java.lang.Math.toIntExact;
 
 /**
  * Class:   Disease.java
@@ -41,8 +42,8 @@ public class Disease {
      *
      * @return  The number of people who will get sick.
      */
-    public long computeNewlySick(final int infected, final int susceptible, final int population) {
-        return round(infectionRate * infected * (susceptible / population));
+    public int computeNewlySick(final int infected, final int susceptible, final int population) {
+        return toIntExact(round(infectionRate * infected * (susceptible / population)));
     }
 
     /**
@@ -53,8 +54,8 @@ public class Disease {
      *
      * @return  The number of people who will recover from the disease.
      */
-    public long computeNewlyRecovered(final int infected) {
-        return round(recoveryRate * infected);
+    public int computeNewlyRecovered(final int infected) {
+        return toIntExact(round(recoveryRate * infected));
     }
 
     /**
@@ -65,8 +66,8 @@ public class Disease {
      *
      * @return  The number of people who will die from the disease.
      */
-    public long computeNewlyDeceased(final int infected) {
-        return round(fatalityRate * infected);
+    public int computeNewlyDeceased(final int infected) {
+        return toIntExact(round(fatalityRate * infected));
     }
 
     /**
@@ -78,8 +79,8 @@ public class Disease {
      *
      * @return  The number of people who will become susceptible to the disease again.
      */
-    public long computeNewImmunityLoss(final int recovered) {
-        return round(mutationRate * recovered);
+    public int computeNewImmunityLoss(final int recovered) {
+        return toIntExact(round(mutationRate * recovered));
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.ermel272.entities;
 
-import java.util.ArrayList;
+import java.util.ArrayDeque;
+import java.util.Queue;
 
 /**
  * Class:   Population.java
@@ -18,21 +19,81 @@ public class Population {
     // Set initial number of infected individuals to 2
     private static final int INITIAL_INFECTED_POPULATION = 2;
 
-    private static ArrayList<Person> susceptiblePeople;
-    private static ArrayList<Person> infectedPeople;
-    private static ArrayList<Person> recoveredPeople;
-    private static ArrayList<Person> deceasedPeople;
+    private static Queue<Person> susceptiblePeople;
+    private static Queue<Person> infectedPeople;
+    private static Queue<Person> recoveredPeople;
+    private static Queue<Person> deceasedPeople;
 
     Population() {
         // Initialize population category lists
-        susceptiblePeople = new ArrayList<>();
-        infectedPeople = new ArrayList<>();
-        recoveredPeople = new ArrayList<>();
-        deceasedPeople = new ArrayList<>();
+        susceptiblePeople = new ArrayDeque<>();
+        infectedPeople = new ArrayDeque<>();
+        recoveredPeople = new ArrayDeque<>();
+        deceasedPeople = new ArrayDeque<>();
 
         // Initialize the susceptible and infected parts of the population
         initSusceptiblePopulation();
         initInfectedPopulation();
+    }
+
+    /**
+     * Moves n people from susceptible to infected.
+     *
+     * @param n
+     *          The number of people who are getting sick.
+     */
+    public void makeSick(final int n) {
+        // Move n people from susceptible to infected
+        for (int i = 0; i < n; i++) {
+            Person person = susceptiblePeople.remove();
+            person.setStatus(DiseaseStatus.INFECTED);
+            infectedPeople.add(person);
+        }
+    }
+
+    /**
+     * Moves n people from infected to recovered.
+     *
+     * @param n
+     *          The number of people who are recovering.
+     */
+    public void makeRecover(final int n) {
+        // Move n people from infected to recovered
+        for (int i = 0; i < n; i++) {
+            Person person = infectedPeople.remove();
+            person.setStatus(DiseaseStatus.RECOVERED);
+            recoveredPeople.add(person);
+        }
+    }
+
+    /**
+     * Moves n people from recovered to susceptible
+     *
+     * @param n
+     *          The number of people who are losing their immunity.
+     */
+    public void makeUnimmune(final int n) {
+        // Move n people from recovered to susceptible
+        for (int i = 0; i < n; i++) {
+            Person person = recoveredPeople.remove();
+            person.setStatus(DiseaseStatus.SUSCEPTIBLE);
+            susceptiblePeople.add(person);
+        }
+    }
+
+    /**
+     * Moves n people from infected to deceased.
+     *
+     * @param n
+     *          The number of people who are dieing.
+     */
+    public void makeDeceased(final int n) {
+        // Move n people from infected to deceased
+        for (int i = 0; i < n; i++) {
+            Person person = infectedPeople.remove();
+            person.setStatus(DiseaseStatus.DECEASED);
+            deceasedPeople.add(person);
+        }
     }
 
     /**
