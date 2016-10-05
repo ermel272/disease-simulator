@@ -15,6 +15,9 @@ public class Population {
     // Set initial population size to fifty million
     private static final int INITIAL_POPULATION_SIZE = 50000000;
 
+    // Set initial number of infected individuals to 2
+    private static final int INITIAL_INFECTED_POPULATION = 2;
+
     private static ArrayList<Person> susceptiblePeople;
     private static ArrayList<Person> infectedPeople;
     private static ArrayList<Person> recoveredPeople;
@@ -27,8 +30,9 @@ public class Population {
         recoveredPeople = new ArrayList<>();
         deceasedPeople = new ArrayList<>();
 
-        // Initialize the population to be contained in the 'susceptible' category
+        // Initialize the susceptible and infected parts of the population
         initSusceptiblePopulation();
+        initInfectedPopulation();
     }
 
     /**
@@ -56,8 +60,17 @@ public class Population {
      * Initializes and adds people to the susceptible category of the population
      */
     private void initSusceptiblePopulation() {
-        for (int i = 0; i < INITIAL_POPULATION_SIZE; i++) {
+        for (int i = 0; i < INITIAL_POPULATION_SIZE - INITIAL_INFECTED_POPULATION; i++) {
             susceptiblePeople.add(new Person());
+        }
+    }
+
+    /**
+     * Initializes and adds people to the infected category of the population
+     */
+    private void initInfectedPopulation() {
+        for (int i = 0; i < INITIAL_INFECTED_POPULATION; i++) {
+            infectedPeople.add(new Person());
         }
     }
 }
