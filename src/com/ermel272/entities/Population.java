@@ -70,7 +70,11 @@ public class Population {
      */
     private void initInfectedPopulation() {
         for (int i = 0; i < INITIAL_INFECTED_POPULATION; i++) {
-            infectedPeople.add(new Person());
+            // Create new person who is infected by the disease
+            Person newPerson = new Person();
+            newPerson.setStatus(DiseaseStatus.INFECTED);
+
+            infectedPeople.add(newPerson);
         }
     }
 }
