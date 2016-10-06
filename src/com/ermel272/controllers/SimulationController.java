@@ -5,13 +5,13 @@ import com.ermel272.entities.Population;
 import com.ermel272.views.ConsoleView;
 
 /**
- * Class:   DayController.java
+ * Class:   SimulationController.java
  * Purpose: Controls the flow of time in the simulation.
  *          Days are the base unit of time, and are modelled via a loop iteration.
  *
  * Created by Chris on 10/4/2016.
  */
-public class DayController {
+public class SimulationController {
 
     // Modify disease parameters here in order to shape the disease's behaviour
     // Note: Rates must be between 0 and 1, or an error will be thrown

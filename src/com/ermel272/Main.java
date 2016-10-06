@@ -1,17 +1,17 @@
 package com.ermel272;
 
-import com.ermel272.controllers.DayController;
+import com.ermel272.controllers.SimulationController;
 
 /**
  * Class:   Main.java
- * Purpose: Passes execution to the {@link com.ermel272.controllers.DayController}.
+ * Purpose: Passes execution to the {@link SimulationController}.
  */
 public class Main {
 
     public static void main(String[] args) {
-        final DayController dayController = new DayController();
+        final SimulationController simulationController = new SimulationController();
 
         // Run simulation
-        dayController.beginSimulation();
+        simulationController.beginSimulation();
     }
 }
