@@ -12,6 +12,6 @@ public class Main {
         final DayController dayController = new DayController();
 
         // Run simulation
-        dayController.run();
+        dayController.beginSimulation();
     }
 }

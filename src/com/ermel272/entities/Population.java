@@ -1,11 +1,8 @@
 package com.ermel272.entities;
 
-import java.util.ArrayDeque;
-import java.util.Queue;
-
 /**
  * Class:   Population.java
- * Purpose: Models a population of {@link Person}'s, dividing
+ * Purpose: Models a population of people, dividing
  *          each of them into a category of either susceptible,
  *          infected, recovered, or deceased.
  *
@@ -17,23 +14,19 @@ public class Population {
     private static final int INITIAL_POPULATION_SIZE = 50000000;
 
     // Set initial number of infected individuals to 2
-    private static final int INITIAL_INFECTED_POPULATION = 2;
+    private static final int INITIAL_INFECTED_POPULATION = 50;
 
-    private static Queue<Person> susceptiblePeople;
-    private static Queue<Person> infectedPeople;
-    private static Queue<Person> recoveredPeople;
-    private static Queue<Person> deceasedPeople;
+    private static int susceptiblePeople;
+    private static int infectedPeople;
+    private static int recoveredPeople;
+    private static int deceasedPeople;
 
-    Population() {
+    public Population() {
         // Initialize population category lists
-        susceptiblePeople = new ArrayDeque<>();
-        infectedPeople = new ArrayDeque<>();
-        recoveredPeople = new ArrayDeque<>();
-        deceasedPeople = new ArrayDeque<>();
-
-        // Initialize the susceptible and infected parts of the population
-        initSusceptiblePopulation();
-        initInfectedPopulation();
+        susceptiblePeople = INITIAL_POPULATION_SIZE - INITIAL_INFECTED_POPULATION;
+        infectedPeople = INITIAL_INFECTED_POPULATION;
+        recoveredPeople = 0;
+        deceasedPeople = 0;
     }
 
     /**
@@ -44,11 +37,8 @@ public class Population {
      */
     public void makeSick(final int n) {
         // Move n people from susceptible to infected
-        for (int i = 0; i < n; i++) {
-            Person person = susceptiblePeople.remove();
-            person.setStatus(DiseaseStatus.INFECTED);
-            infectedPeople.add(person);
-        }
+        susceptiblePeople -= n;
+        infectedPeople += n;
     }
 
     /**
@@ -59,11 +49,8 @@ public class Population {
      */
     public void makeRecover(final int n) {
         // Move n people from infected to recovered
-        for (int i = 0; i < n; i++) {
-            Person person = infectedPeople.remove();
-            person.setStatus(DiseaseStatus.RECOVERED);
-            recoveredPeople.add(person);
-        }
+        infectedPeople -= n;
+        recoveredPeople += n;
     }
 
     /**
@@ -74,11 +61,8 @@ public class Population {
      */
     public void makeUnimmune(final int n) {
         // Move n people from recovered to susceptible
-        for (int i = 0; i < n; i++) {
-            Person person = recoveredPeople.remove();
-            person.setStatus(DiseaseStatus.SUSCEPTIBLE);
-            susceptiblePeople.add(person);
-        }
+        recoveredPeople -= n;
+        susceptiblePeople += n;
     }
 
     /**
@@ -89,11 +73,8 @@ public class Population {
      */
     public void makeDeceased(final int n) {
         // Move n people from infected to deceased
-        for (int i = 0; i < n; i++) {
-            Person person = infectedPeople.remove();
-            person.setStatus(DiseaseStatus.DECEASED);
-            deceasedPeople.add(person);
-        }
+        infectedPeople -= n;
+        deceasedPeople += n;
     }
 
     /**
@@ -107,35 +88,26 @@ public class Population {
      * @return The number of people who are alive in the Population
      */
     public int getActivePopulationSize() {
-        return susceptiblePeople.size() + infectedPeople.size() + recoveredPeople.size();
+        return susceptiblePeople + infectedPeople + recoveredPeople;
     }
 
     /**
-     * Returns the number of people who have died
-     *
      * @return The number of people who have died
      */
-    public int getDeceasedPopulationSize() { return deceasedPeople.size(); }
+    public int getDeceasedPopulationSize() { return deceasedPeople; }
 
     /**
-     * Initializes and adds people to the susceptible category of the population
+     * @return The number of people who are infected
      */
-    private void initSusceptiblePopulation() {
-        for (int i = 0; i < INITIAL_POPULATION_SIZE - INITIAL_INFECTED_POPULATION; i++) {
-            susceptiblePeople.add(new Person());
-        }
-    }
+    public int getInfectedPopulationSize() { return infectedPeople; }
 
     /**
-     * Initializes and adds people to the infected category of the population
+     * @return The number of people who are susceptible to the disease
      */
-    private void initInfectedPopulation() {
-        for (int i = 0; i < INITIAL_INFECTED_POPULATION; i++) {
-            // Create new person who is infected by the disease
-            Person newPerson = new Person();
-            newPerson.setStatus(DiseaseStatus.INFECTED);
+    public int getSusceptiblePopulationSize() { return susceptiblePeople; }
 
-            infectedPeople.add(newPerson);
-        }
-    }
+    /**
+     * @return The number of people who have recovered from the disease
+     */
+    public int getRecoveredPopulationSize() { return recoveredPeople; }
 }

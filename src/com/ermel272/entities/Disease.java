@@ -18,7 +18,7 @@ public class Disease {
     private double recoveryRate;
     private double fatalityRate;
 
-    Disease(final double mutationRate, final double infectionRate, final double recoveryRate, final double fatalityRate) {
+    public Disease(final double mutationRate, final double infectionRate, final double recoveryRate, final double fatalityRate) {
         // Ensure all rates given are between 0 and 1
         validateRates(mutationRate, infectionRate, recoveryRate, fatalityRate);
 
@@ -43,7 +43,7 @@ public class Disease {
      * @return  The number of people who will get sick.
      */
     public int computeNewlySick(final int infected, final int susceptible, final int population) {
-        return toIntExact(round(infectionRate * infected * (susceptible / population)));
+        return toIntExact(round(infectionRate * infected * ((double) susceptible / (double) population)));
     }
 
     /**
@@ -55,7 +55,7 @@ public class Disease {
      * @return  The number of people who will recover from the disease.
      */
     public int computeNewlyRecovered(final int infected) {
-        return toIntExact(round(recoveryRate * infected));
+        return toIntExact(round(recoveryRate * (double) infected));
     }
 
     /**
@@ -67,7 +67,7 @@ public class Disease {
      * @return  The number of people who will die from the disease.
      */
     public int computeNewlyDeceased(final int infected) {
-        return toIntExact(round(fatalityRate * infected));
+        return toIntExact(round(fatalityRate * (double) infected));
     }
 
     /**
@@ -80,7 +80,7 @@ public class Disease {
      * @return  The number of people who will become susceptible to the disease again.
      */
     public int computeNewImmunityLoss(final int recovered) {
-        return toIntExact(round(mutationRate * recovered));
+        return toIntExact(round(mutationRate * (double) recovered));
     }
 
     /**
