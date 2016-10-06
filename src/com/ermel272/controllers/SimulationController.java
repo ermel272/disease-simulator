@@ -33,8 +33,8 @@ public class SimulationController {
         int day = 1;
 
         // Begin simulation - one iteration represents one day of time
-        // Runs the simulation over a period of 'two years'
-        while (day < 2 * ONE_YEAR) {
+        // Runs the simulation over a period of one year
+        while (day < ONE_YEAR) {
 
             // Everyday, four things happen
             // 1. People get sick
